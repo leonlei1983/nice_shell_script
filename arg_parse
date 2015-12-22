@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while [ "x$(echo $1)" != "x" ]; do
+	if echo $1 | grep -q ^-; then
+		echo $2 | grep -vq ^-
+		if [ $? = 0 ] && [ "x$(echo $2)" != "x" ]; then
+			echo "$(echo $1 | sed 's/^-/g_/') = $2"
+			eval $(echo $1 | sed 's/^-/g_/')=$2
+			shift
+		else
+			echo "$(echo $1 | sed 's/^-/g_/') = 1"
+			eval $(echo $1 | sed 's/^-/g_/')=1
+		fi
+	fi
+	shift
+done
+
+# function -----------
+
+# main ---------------
